@@ -2,6 +2,8 @@ name: New pipeline
 
 on:
   workflow_dispatch:
+  push:
+    branches: [ "main" ]
 
 permissions: # Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages 
   contents: read
@@ -60,6 +62,11 @@ jobs:
           Repository: ${{ github.repository }}
             
           See changes: https://github.com/${{ github.repository }}/commit/${{github.sha}}
+
+    - name: Upload artifact
+      uses: actions/upload-pages-artifact@v1
+      with:
+        path: './html-report'
     
     - name: Deploy to GitHub Pages
       id: deployment
